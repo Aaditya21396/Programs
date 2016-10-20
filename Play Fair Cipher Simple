@@ -1,0 +1,75 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class PlayFair {
+	public static void printMatrix(char matrix[][])
+	{
+		for(int i=0;i<matrix.length;i++){
+			for(int j=0;j<matrix[0].length;j++)
+			{
+				System.out.print(matrix[i][j]+ " | ");
+			}
+			System.out.println();
+		}
+
+	}
+	public static char[][] buildRefrence(String keyword)
+	{
+		char refrence[][]=new char[5][5];
+		int sr=0,sc=0;
+		HashMap<Character ,Integer> key=new HashMap<>();
+		for(int i=0;i<keyword.length();i++){
+			if(!key.containsKey(keyword.charAt(i)))
+			{
+				key.put(keyword.charAt(i),1 );	
+				if(sc>=refrence[0].length&&sr<refrence.length)
+				{
+					sr++;
+					sc=0;
+				}// end of entering if
+				if(sr>=refrence.length)
+				{
+					break;
+				}
+				refrence[sr][sc]=keyword.charAt(i);
+				sc++;
+			}// end of containing check if
+
+		} // end of for
+		
+		for(int i=97;i<=122;i++)
+		{
+			char c=(char)i;
+			if(!key.containsKey(c)&&sr<refrence.length)
+			{
+				if(sc>=refrence[0].length)
+				{
+					sr++;
+					sc=0;
+				}// end of entering if
+				if(sr>=refrence.length)
+				{
+					break;
+				}
+				refrence[sr][sc]=c;
+				sc++;
+
+			}
+
+		}
+		return refrence;
+	}
+
+	public static void main(String[] args) {
+		String inputText,keyword;
+		Scanner s=new Scanner(System.in);
+		System.out.println("Enter the text to cipher");
+		inputText=s.nextLine();
+		System.out.println("Enter the text to Keyword");
+		keyword=s.nextLine();
+		char refrence[][]=new char[5][5];
+		refrence=buildRefrence(keyword);
+		printMatrix(refrence);
+	}
+
+}
